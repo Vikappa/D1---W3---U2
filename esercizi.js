@@ -91,7 +91,6 @@ const addPet = function () {
     let presente = false
 
     listaPetAcquisiti.forEach(pet => {
-        console.log(pet.stringaPet() + " = " + newpet.stringaPet())
         if (pet.stringaPet() === newpet.stringaPet()) {
             presente = true
         }
@@ -115,5 +114,5 @@ form.addEventListener('submit', function (e) {
     for (let index = 0; index < listaPetAcquisiti.length; index++) {
         console.log(listaPetAcquisiti[index].stringaPet())
     }
-
+    console.log("")//Spaziatura di cortesia
 })
