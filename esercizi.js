@@ -1,9 +1,9 @@
 class User {
     constructor(firstName, lastName, age, location) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.location = location;
+        this.firstName = firstName
+        this.lastName = lastName
+        this.age = age
+        this.location = location
         this.confrontaEtàCon = function (soggetoConfronto) {
             if (this.age > soggetoConfronto.age) {
                 console.log(`E' più vecchio ${this.firstName}, che ha ${this.age} anni che ${soggetoConfronto.firstName} che ne ha ${soggetoConfronto.age}`)
@@ -53,11 +53,17 @@ class Pet {
 }
 
 const listaPetSchermo = document.getElementById('listaPetSchermo')
+const listaOwnerSchermo = document.getElementById('ownerList')
 let listaPetAcquisiti = []
 const form = document.getElementById('petForm')
+const titolo1 = document.getElementById('titoloPets')
+const titolo2 = document.getElementById('titoloProprietari')
+
+
 const updatePetListSchermo = function () {
     listaPetSchermo.innerHTML = ``
-
+    listaPetSchermo.classList.remove('d-none')
+    titolo1.classList.remove('d-none')
     let listaRitorno = ``
 
     for (let index = 0; index < listaPetAcquisiti.length; index++) {
@@ -75,7 +81,50 @@ const updatePetListSchermo = function () {
 
 const checkOwners = function () {
 
-    //console.log("Owner di più gatti " + listaOwner)
+    listaOwnerSchermo.classList.remove('ownerList')
+    titolo2.classList.remove('d-none')
+    let listaOwner = []
+    // Creiamo un set per tenere traccia degli owner unici
+    let uniqueOwnersSet = new Set()
+
+    // Scorriamo l'array di oggetti
+    for (let pet of listaPetAcquisiti) {
+        // Aggiungiamo il petOwner al set
+        uniqueOwnersSet.add(pet.petOwner)
+    }
+
+    // Convertiamo il set in un array e lo salviamo in listaowner
+    listaOwner = Array.from(uniqueOwnersSet)
+
+    let listaOwnerConScore = listaOwner.map(owner => {
+        let match = []
+        listaPetAcquisiti.forEach(pet => {
+            if (owner === pet.petOwner) {
+                match.push(pet)
+            }
+        })
+        return { ownerName: owner, ownerArray: match }
+    })
+
+    let stringaFinale = ``
+
+    for (let index = 0; index < listaOwnerConScore.length; index++) {
+        let catenaPets = ``
+        for (let i = 0; i < listaOwnerConScore[index].ownerArray.length; i++) {
+            catenaPets = catenaPets + `<p>${listaOwnerConScore[index].ownerArray[i].stringaPet()}</p>`
+        }
+
+        stringaFinale = stringaFinale + `<div class="card" style="width: 18rem;">
+    <div class="card-body d-flex">
+      <h5 class="card-title">${listaOwnerConScore[index].ownerName}</h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">Tipo animale [1] Secondo tipo animale [2]</h6>
+      <div class="card-text">${catenaPets}</div>
+    </div>
+  </div>`
+    }
+
+    listaOwnerSchermo.innerHTML = stringaFinale
+
 }
 
 
@@ -94,12 +143,11 @@ const addPet = function () {
         if (pet.stringaPet() === newpet.stringaPet()) {
             presente = true
         }
-    });
+    })
 
     if (!presente) {
         listaPetAcquisiti.push(newpet)
     }
-
 
 
 }
