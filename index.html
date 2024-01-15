@@ -16,31 +16,34 @@
 
         <img src="./blobfish.webp" class="img-fluid col-4 col-md-3 col-lg-2">
 
-        <form action="" class="text-white">
-            <h2>Inserisci il pet</h2>
-
-            <div class="d-flex flex-column text-center align-items-center">
-                <form id="petForm">
-                    <label for="petName">Nome del Pet:</label>
-                    <input type="text" id="petName" required><br>
-
-                    <label for="ownerName">Nome del proprietario:</label>
-                    <input type="text" id="ownerName" required><br>
-
-                    <label for="specie">Specie:</label>
-                    <input type="text" id="specie" required><br>
-
-                    <label for="razza">Razza:</label>
-                    <input type="text" id="razza" required><br>
-
-                    <button type="submit" onclick="addPet()">Add Pet</button>
-                </form>
+        <form id="petForm">
+            <div class="mb-2">
+                <label for="firstName" class="form-label text-white">Nome Pet</label>
+                <input type="text" class="form-control" id="petName" required />
             </div>
+
+            <div class="mb-2">
+                <label for="lastName" class="form-label text-white">Proprietario pet</label>
+                <input type="text" class="form-control" id="petOwner" required />
+            </div>
+
+            <div class="mb-2">
+                <label for="phone" class="form-label text-white">Specie di animale</label>
+                <input type="text" class="form-control" id="specie" maxlength="10" required />
+            </div>
+
+            <div class="mb-2">
+                <label for="email" class="form-label text-white">Razza</label>
+                <input type="text" class="form-control" id="razza" required />
+            </div>
+
+            <button type="submit" class="btn bg-white">Aggiungi</button>
+        </form>
+    </div>
     </div>
 
     <div id="contenitoreListaPet" class="container">
-        <div class="row" id="listaPetSchermo">
-            aaaaaaaaaaaaaa
+        <div class="row text-white" id="listaPetSchermo">
         </div>
     </div>
 
