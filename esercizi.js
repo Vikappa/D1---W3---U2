@@ -72,6 +72,23 @@ const updatePetListSchermo = function () {
     listaPetSchermo.innerHTML = listaRitorno
 }
 
+const checkOwners = function () {
+    const listaOwner = []
+
+    for (let i = 0; i < listaPetAcquisiti.length; i++) {
+        for (let j = 0; j < listaPetAcquisiti.length; j++) {
+            if (listaPetAcquisiti[i].petOwner === listaPetAcquisiti[j].petOwner) {
+                if (!listaOwner.includes(listaPetAcquisiti[i].petOwner)) {
+                    listaOwner.push(listaPetAcquisiti[i].petOwner)
+                }
+            }
+        }
+    }
+
+    console.log("Owner di più gatti " + listaOwner)
+}
+
+
 const addPet = function () {
     // I controlli che i campi siano riempiti vengono effettuati dal form
     let petName = document.getElementById('petName').value
@@ -83,20 +100,18 @@ const addPet = function () {
 
     let presente = false
 
-    for (let i = 0; i < listaPetAcquisiti.length; i++) {
-        if (listaPetAcquisiti[i].stringaPet === newpet.stringaPet) {
-            presente === true
+    listaPetAcquisiti.forEach(pet => {
+        console.log(pet.stringaPet() + " = " + newpet.stringaPet())
+        if (pet.stringaPet() === newpet.stringaPet()) {
+            presente = true
         }
-    }
+    });
 
     if (!presente) {
         listaPetAcquisiti.push(newpet)
     }
 
 
-    for (let index = 0; index < listaPetAcquisiti.length; index++) {
-        console.log(listaPetAcquisiti[index].stringaPet())
-    }
 
 }
 
@@ -105,5 +120,10 @@ form.addEventListener('submit', function (e) {
     e.preventDefault() // fermiamo la pagina dal refresh
     addPet()
     updatePetListSchermo()
+    checkOwners()
+
+    for (let index = 0; index < listaPetAcquisiti.length; index++) {
+        console.log(listaPetAcquisiti[index].stringaPet())
+    }
 
 })
