@@ -30,10 +30,19 @@ marioRossi.confrontaEtàCon(marcoNeri)
 darioBianchi.confrontaEtàCon(marcoNeri)
 console.log("") //spaziatura per i risultati del prossimo esercizio
 
-const addPet = function () {
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+const listaPetSchermo = document.getElementById('listaPetSchermo')
+let listaPetAcquisiti = []
 
+const updatePetList = function () {
+    listaPetSchermo.innerHTML = ``
+}
+
+const addPet = function () {
+    updatePetList()
 
 
 
     let pRitorno
 }
+
