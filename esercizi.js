@@ -69,23 +69,13 @@ const updatePetListSchermo = function () {
         </ul>
       </div>`
     }
+
     listaPetSchermo.innerHTML = listaRitorno
 }
 
 const checkOwners = function () {
-    const listaOwner = []
 
-    for (let i = 0; i < listaPetAcquisiti.length; i++) {
-        for (let j = 0; j < listaPetAcquisiti.length; j++) {
-            if (listaPetAcquisiti[i].petOwner === listaPetAcquisiti[j].petOwner) {
-                if (!listaOwner.includes(listaPetAcquisiti[i].petOwner)) {
-                    listaOwner.push(listaPetAcquisiti[i].petOwner)
-                }
-            }
-        }
-    }
-
-    console.log("Owner di più gatti " + listaOwner)
+    //console.log("Owner di più gatti " + listaOwner)
 }
 
 
