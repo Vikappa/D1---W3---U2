@@ -41,6 +41,15 @@ class Pet {
     stringaPet() {
         return `${this.petName}, ${this.specie} di ${this.petOwner}, ${this.razza}`
     }
+
+    stessoPadroneDi(otherPet) {
+        if (this.petOwner === otherPet.petOwner) {
+            return true
+        } else {
+            return false
+        }
+    }
+
 }
 
 const listaPetSchermo = document.getElementById('listaPetSchermo')
@@ -48,6 +57,19 @@ let listaPetAcquisiti = []
 const form = document.getElementById('petForm')
 const updatePetListSchermo = function () {
     listaPetSchermo.innerHTML = ``
+
+    let listaRitorno = ``
+
+    for (let index = 0; index < listaPetAcquisiti.length; index++) {
+        listaRitorno = listaRitorno + `<div class="card m-1" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">${listaPetAcquisiti[index].petName}</li>
+          <li class="list-group-item">${listaPetAcquisiti[index].specie}, ${listaPetAcquisiti[index].razza}</li>
+          <li class="list-group-item">Di ${listaPetAcquisiti[index].petOwner}</li>
+        </ul>
+      </div>`
+    }
+    listaPetSchermo.innerHTML = listaRitorno
 }
 
 const addPet = function () {
@@ -83,4 +105,5 @@ form.addEventListener('submit', function (e) {
     e.preventDefault() // fermiamo la pagina dal refresh
     addPet()
     updatePetListSchermo()
+
 })
