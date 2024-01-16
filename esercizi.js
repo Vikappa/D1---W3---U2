@@ -102,7 +102,6 @@ const sincronizzaMemoriaUtente = function () {
         localStorage.setItem(`petListStorage_${stringaPassword}_${o}`, JSON.stringify(listaPetAquisiti[o]))
     }
 
-
 } // rimuove tutte le chiavi utente dell'user e le rimette a partire da 0, riordinandole NB: SALVA IN LOCALSTORAGE listaPetAquisiti di questo user
 
 
@@ -146,16 +145,20 @@ const addPet = function () {
     let newpet = new Pet(petName, petOwner, specie, razza)
 
     let presente = false
-
     for (let f = 0; f < listaPetAquisiti.length; f++) {
-        if (JSON.stringify(newpet) === JSON.stringify(listaPetAquisiti[f])) {
-            console.log('trovato')
+        if (JSON.stringify(newpet) === JSON.stringify(listaPetAquisiti[f])) {// Controllo vhr non esista un oggetto uguale
             presente = true
             break
+        } else { // Aggiungo a listaPetAquisiti
+            presente = false
         }
     }
 
-
+    if (!presente) {
+        listaPetAquisiti.push(newpet)
+        updateSchermoPet()
+        updateVisibilità()
+    }
 
 }
 
