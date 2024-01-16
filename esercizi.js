@@ -24,9 +24,13 @@ class User {
 const marioRossi = new User("Mario", "Rossi", 55, "Padova")
 const darioBianchi = new User("Dario", "Bianchi", 37, "Vicenza")
 const marcoNeri = new User("Marco", "Neri", 55, "Torino")
+console.log("") //spaziatura per i risultati del prossimo esercizio
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+const campoPassword = document.getElementById('passwordUtente')
 const listaPetSchermo = document.getElementById('listaPetSchermo')
 const listaOwnerSchermo = document.getElementById('ownerList')
-let listaPetAcquisiti = []
+const divPets = document.getElementById('contenitoreListaPet')
+let listaPetAquisiti = []
 const form = document.getElementById('petForm')
 const titolo1 = document.getElementById('titoloPets')
 const titolo2 = document.getElementById('titoloProprietari')
@@ -35,11 +39,17 @@ marioRossi.confrontaEtàCon(darioBianchi)
 marioRossi.confrontaEtàCon(marcoNeri)
 darioBianchi.confrontaEtàCon(marcoNeri)
 
-let stringaPassword = "aaa"
+let stringaPassword
 
-console.log("") //spaziatura per i risultati del prossimo esercizio
+campoPassword.addEventListener("input", function () {
+    stringaPassword = passwordUtente.value
+    svuotaListaPet()
+    loadLocalStorage()
+    updateSchermoPet()
+    updateVisibilità()
+})
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+
 class Pet {
     constructor(petName, petOwner, specie, razza) {
         this.petName = petName
@@ -61,158 +71,70 @@ class Pet {
 
 }
 
-let refreshLocalStorage = function (arrayDaSalvare) {
-
-    for (let elle = 0; elle < 100; elle++) {
-        localStorage.removeItem(`petListStorage_` + stringaPassword + `_` + elle)
-    }
-
-    for (let x = 0; x < arrayDaSalvare.length; x++) {
-        let petDaSalvare = JSON.stringify(arrayDaSalvare[x])
-        localStorage.setItem(`petListStorage_` + stringaPassword + `_` + x, petDaSalvare)
-    }
+const svuotaListaPet = function () {
+    listaPetAquisiti = []
 }
 
+const loadLocalStorage = function () {
+    let arrayPetRecuperato = []
+    let arrayRecuperato = [...Object.entries(localStorage)]
 
-const removeCard = function (id) {
-    let button = document.getElementById(`card${id}${stringaPassword}`)
-    if (button) {
-        //rimuovo la grafica
-        var genitore = button.parentNode
-        genitore.removeChild(button)
-
-
-        //rimuovo l'elemento dall'array
-        for (let iiiindex = 0; iiiindex < listaPetAcquisiti.length; iiiindex++) {
-            let scope = listaPetAcquisiti[iiiindex]
-
-            // Verifica se lo scope ha i valori del pet da rimuovere
-            if (
-                scope.petName === listaPetAcquisiti[id].petName &&
-                scope.petOwner === listaPetAcquisiti[id].petOwner &&
-                scope.specie === listaPetAcquisiti[id].specie &&
-                scope.razza === listaPetAcquisiti[id].razza
-            ) {
-                // Rimuovi l'elemento dall'array
-                listaPetAcquisiti.splice(iiiindex, 1)
-                break
-            }
-        }
-
-        refreshLocalStorage(listaPetAcquisiti)
-        localStorage.removeItem(`petListStorage_` + stringaPassword + `_` + id)
-    } else {
-        console.error(`Elemento con ID card${index}${stringaPassword} non trovato.`)
-    }
-}
-
-
-
-const updatePetListSchermo = function () {
-    listaPetSchermo.innerHTML = ``
-    listaPetSchermo.classList.remove('d-none')
-    titolo1.classList.remove('d-none')
-    let listaRitorno = ``
-
-    let chiavePassword = `petListStorage_` + stringaPassword + `_`
-
-    let petRecuperato = function (index) {
-
-        let petRecuperato = localStorage.getItem(chiavePassword + index)
-        if (petRecuperato) {
-            let oggettoDecodificato = JSON.parse(petRecuperato)
-            return oggettoDecodificato
-        }
-        else {
-            console.log(`Nessun elemento trovato alla chiave ` + chiavePassword + index)
+    for (let index = 0; index < arrayRecuperato.length; index++) {
+        if (arrayRecuperato[index][0].includes(`_${stringaPassword}_`)) {
+            arrayPetRecuperato.push(JSON.parse(arrayRecuperato[index][1]))
         }
     }
 
-    let contatore = 0
-
-    let recuperoFinito = false
-
-    if (listaPetAcquisiti.length > 0) {
-        recuperoFinito = true
+    for (let j = 0; j < arrayPetRecuperato.length; j++) {
+        listaPetAquisiti.push(arrayPetRecuperato[j])
     }
 
-    while (!recuperoFinito) {
-        let pet = petRecuperato(contatore)
-        console.log(pet)
-        if (pet) {
-            listaPetAcquisiti.push(pet)
-            contatore++
-        }
-        else {
-            recuperoFinito = true
-            console.log(`Nessun pet aggiunto`)
-        }
-    }
+} // Aggiunge a listaPetAquisiti gli elementi presenti in storage con la password corrente
 
-    for (let index = 0; index < listaPetAcquisiti.length; index++) {
-        listaRitorno = listaRitorno + `<div class="card m-1" id="card${index}${stringaPassword}" style="width: 18rem;">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">${listaPetAcquisiti[index].petName}</li>
-          <li class="list-group-item">${listaPetAcquisiti[index].specie}, ${listaPetAcquisiti[index].razza}</li>
-          <li class="list-group-item">Di ${listaPetAcquisiti[index].petOwner}</li>
-          <span class="badge bg-secondary align-self-end bg-danger m-1 p-1" onclick="removeCard(${index})">Rimuovi</span></h6>
-        </ul>
-      </div>`
-    }
-    listaPetSchermo.innerHTML = listaRitorno
-}
-
-const checkOwners = function () {
-
-    listaOwnerSchermo.classList.remove('ownerList')
-    titolo2.classList.remove('d-none')
-    let listaOwner = []
-
-    // Creiamo un set per tenere traccia degli owner unici
-    let uniqueOwnersSet = new Set()
-
-    // Scorriamo l'array di oggetti
-    for (let pet of listaPetAcquisiti) {
-        // Aggiungiamo il petOwner al set
-        uniqueOwnersSet.add(pet.petOwner)
-    }
-
-    // Convertiamo il set in un array e lo salviamo in listaowner
-    listaOwner = Array.from(uniqueOwnersSet)
-
-
-    let listaOwnerConScore = listaOwner.map(owner => {
-        let match = []
-        listaPetAcquisiti.forEach(pet => {
-            if (owner === pet.petOwner) {
-                match.push(pet)
-            }
-        })
-        return { ownerName: owner, ownerArray: match }
+const sincronizzaMemoriaUtente = function () {
+    let arrayCaricato = [...Object.entries(localStorage)]
+    arrayCaricato.forEach(oggettoCaricato => {
+        if (oggettoCaricato[0].includes(`_${stringaPassword}_`))
+            localStorage.removeItem(`${oggettoCaricato[0]}`)
     })
 
-    let stringaFinale = ``
-
-    for (let index = 0; index < listaOwnerConScore.length; index++) {
-        let catenaPets = ``
-        for (let i = 0; i < listaOwnerConScore[index].ownerArray.length; i++) {
-            console.log(listaOwnerConScore[index].ownerArray[i])
-            catenaPets = catenaPets + `<p>${listaOwnerConScore[index].ownerArray[i].stringaPet()}</p>`
-        }
-
-        stringaFinale = stringaFinale + `<div class="card" style="width: 18rem;">
-    <div class="card-body d-flex">
-      <h5 class="card-title">${listaOwnerConScore[index].ownerName}</h5>
-      <h6 class="card-subtitle mb-2 text-body-secondary">Tipo animale [1] Secondo tipo animale [2]</h6>
-      <div class="card-text">${catenaPets}</div>
-    </div>
-  </div>`
+    for (let o = 0; o < listaPetAquisiti.length; o++) {
+        localStorage.setItem(`petListStorage_${stringaPassword}_${o}`, JSON.stringify(listaPetAquisiti[o]))
     }
 
-    listaOwnerSchermo.innerHTML = stringaFinale
+
+} // rimuove tutte le chiavi utente dell'user e le rimette a partire da 0, riordinandole NB: SALVA IN LOCALSTORAGE listaPetAquisiti di questo user
+
+
+const removePet = function (x) {
+    console.log(x)
 
 }
 
+const updateVisibilità = function () {
+    if (listaPetAquisiti.length > 0) {
+        divPets.classList.remove('d-none')
+    } else {
+        divPets.classList.add('d-none')
+    }
+} // Rende visibile o invisibile i div contenitori di card in base alla lunghezza di listaPetAquisiti
+
+const updateSchermoPet = function () {
+    listaPetSchermo.innerHTML = ``
+    let stringaFinale = ``
+    for (let i = 0; i < listaPetAquisiti.length; i++) {
+        stringaFinale = stringaFinale + `<div class="card m-1" style="width: 18rem;" id ="cardId${i}">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item fs-5 fw-bold p-0">${listaPetAquisiti[i].petName}</li>
+      <li class="list-group-item fs-6 p-0">Di ${listaPetAquisiti[i].petOwner}</li>
+      <li class="list-group-item fs-6 p-0">${listaPetAquisiti[i].specie} ${listaPetAquisiti[i].razza}</li>
+      <span class="badge bg-secondary p-1 m-1 align-self-end bg-danger" onclick=removePet(${i}) >Rimuovi</span>
+    </ul>
+    </div>`
+    }
+    listaPetSchermo.innerHTML = stringaFinale
+    sincronizzaMemoriaUtente()
+} // renderizza le card pet a schermo in base a listaPetAquisiti + richiama metodo sincronizzazione pet a schermo-localstorage
 
 const addPet = function () {
     // I controlli che i campi siano riempiti vengono effettuati dal form
@@ -225,41 +147,24 @@ const addPet = function () {
 
     let presente = false
 
-
-    for (let scopeIndex = 0; scopeIndex < listaPetAcquisiti.length; scopeIndex++) {
-        let scope = listaPetAcquisiti[scopeIndex]
-        console.log(listaPetAcquisiti[scopeIndex])
-
-        // Verifica se lo scope ha i valori del pet 
-        if (
-            scope.petName === listaPetAcquisiti[scopeIndex].petName &&
-            scope.petOwner === listaPetAcquisiti[scopeIndex].petOwner &&
-            scope.specie === listaPetAcquisiti[scopeIndex].specie &&
-            scope.razza === listaPetAcquisiti[scopeIndex].razza
-        ) {
+    for (let f = 0; f < listaPetAquisiti.length; f++) {
+        if (JSON.stringify(newpet) === JSON.stringify(listaPetAquisiti[f])) {
+            console.log('trovato')
             presente = true
+            break
         }
     }
 
-    if (!presente) {
-        listaPetAcquisiti.push(newpet)
-        refreshLocalStorage(listaPetAcquisiti)
-    }
+
+
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+loadLocalStorage()
+updateSchermoPet()
+updateVisibilità()
 
 form.addEventListener('submit', function (e) {
     e.preventDefault() // fermiamo la pagina dal refresh
     addPet()
-    updatePetListSchermo()
-    checkOwners()
-
-    for (let index = 0; index < listaPetAcquisiti.length; index++) {
-        console.log(listaPetAcquisiti[index].stringaPet())
-    }
     console.log("")//Spaziatura di cortesia
 })
-
-updatePetListSchermo()
-//checkOwners()

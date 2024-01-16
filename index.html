@@ -13,10 +13,13 @@
 <body class="container">
 
     <div class="row flex-column align-items-center text-center">
-
+        <div class="mb-2 col-7">
+            <label for="firstName" class="form-label text-white">Password Utente:</label>
+            <input type="text" class="form-control text-center" id="passwordUtente" />
+        </div>
         <img src="./blobfish.webp" class="img-fluid col-4 col-md-3 col-lg-2">
 
-        <form id="petForm">
+        <form id="petForm" class="col-11">
             <div class="mb-2">
                 <label for="firstName" class="form-label text-white">Nome Pet</label>
                 <input type="text" class="form-control" id="petName" required />
@@ -42,16 +45,17 @@
     </div>
     </div>
 
-    <div id="contenitoreListaPet" class="container text-white">
-        <h3 id="titoloPets" class="d-none">Pets:</h3>
-        <div class="row text-white p-3 text-white d-none" id="listaPetSchermo">
+    <div id="contenitoreListaPet" class="container text-white d-none">
+        <h3 id="titoloPets" class="">Pets:</h3>
+        <div class="row text-white p-3 text-white" id="listaPetSchermo">
+
         </div>
     </div>
 
 
-    <div class="container text-white">
+    <div class="container text-white d-none">
         <h3 id="titoloProprietari" class="d-none">Proprietari:</h3>
-        <div class="row flex-column d-none" id="ownerList">
+        <div class="row flex-column" id="ownerList">
         </div>
     </div>
 
