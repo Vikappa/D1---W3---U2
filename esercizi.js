@@ -24,10 +24,19 @@ class User {
 const marioRossi = new User("Mario", "Rossi", 55, "Padova")
 const darioBianchi = new User("Dario", "Bianchi", 37, "Vicenza")
 const marcoNeri = new User("Marco", "Neri", 55, "Torino")
+const listaPetSchermo = document.getElementById('listaPetSchermo')
+const listaOwnerSchermo = document.getElementById('ownerList')
+let listaPetAcquisiti = []
+const form = document.getElementById('petForm')
+const titolo1 = document.getElementById('titoloPets')
+const titolo2 = document.getElementById('titoloProprietari')
 
 marioRossi.confrontaEtàCon(darioBianchi)
 marioRossi.confrontaEtàCon(marcoNeri)
 darioBianchi.confrontaEtàCon(marcoNeri)
+
+let stringaPassword = "aaa"
+
 console.log("") //spaziatura per i risultati del prossimo esercizio
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -52,12 +61,51 @@ class Pet {
 
 }
 
-const listaPetSchermo = document.getElementById('listaPetSchermo')
-const listaOwnerSchermo = document.getElementById('ownerList')
-let listaPetAcquisiti = []
-const form = document.getElementById('petForm')
-const titolo1 = document.getElementById('titoloPets')
-const titolo2 = document.getElementById('titoloProprietari')
+let refreshLocalStorage = function (arrayDaSalvare) {
+
+    for (let elle = 0; elle < 100; elle++) {
+        localStorage.removeItem(`petListStorage_` + stringaPassword + `_` + elle)
+    }
+
+    for (let x = 0; x < arrayDaSalvare.length; x++) {
+        let petDaSalvare = JSON.stringify(arrayDaSalvare[x])
+        localStorage.setItem(`petListStorage_` + stringaPassword + `_` + x, petDaSalvare)
+    }
+}
+
+
+const removeCard = function (id) {
+    let button = document.getElementById(`card${id}${stringaPassword}`)
+    if (button) {
+        //rimuovo la grafica
+        var genitore = button.parentNode
+        genitore.removeChild(button)
+
+
+        //rimuovo l'elemento dall'array
+        for (let iiiindex = 0; iiiindex < listaPetAcquisiti.length; iiiindex++) {
+            let scope = listaPetAcquisiti[iiiindex]
+
+            // Verifica se lo scope ha i valori del pet da rimuovere
+            if (
+                scope.petName === listaPetAcquisiti[id].petName &&
+                scope.petOwner === listaPetAcquisiti[id].petOwner &&
+                scope.specie === listaPetAcquisiti[id].specie &&
+                scope.razza === listaPetAcquisiti[id].razza
+            ) {
+                // Rimuovi l'elemento dall'array
+                listaPetAcquisiti.splice(iiiindex, 1)
+                break
+            }
+        }
+
+        refreshLocalStorage(listaPetAcquisiti)
+        localStorage.removeItem(`petListStorage_` + stringaPassword + `_` + id)
+    } else {
+        console.error(`Elemento con ID card${index}${stringaPassword} non trovato.`)
+    }
+}
+
 
 
 const updatePetListSchermo = function () {
@@ -66,16 +114,51 @@ const updatePetListSchermo = function () {
     titolo1.classList.remove('d-none')
     let listaRitorno = ``
 
+    let chiavePassword = `petListStorage_` + stringaPassword + `_`
+
+    let petRecuperato = function (index) {
+
+        let petRecuperato = localStorage.getItem(chiavePassword + index)
+        if (petRecuperato) {
+            let oggettoDecodificato = JSON.parse(petRecuperato)
+            return oggettoDecodificato
+        }
+        else {
+            console.log(`Nessun elemento trovato alla chiave ` + chiavePassword + index)
+        }
+    }
+
+    let contatore = 0
+
+    let recuperoFinito = false
+
+    if (listaPetAcquisiti.length > 0) {
+        recuperoFinito = true
+    }
+
+    while (!recuperoFinito) {
+        let pet = petRecuperato(contatore)
+        console.log(pet)
+        if (pet) {
+            listaPetAcquisiti.push(pet)
+            contatore++
+        }
+        else {
+            recuperoFinito = true
+            console.log(`Nessun pet aggiunto`)
+        }
+    }
+
     for (let index = 0; index < listaPetAcquisiti.length; index++) {
-        listaRitorno = listaRitorno + `<div class="card m-1" style="width: 18rem;">
+        listaRitorno = listaRitorno + `<div class="card m-1" id="card${index}${stringaPassword}" style="width: 18rem;">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">${listaPetAcquisiti[index].petName}</li>
           <li class="list-group-item">${listaPetAcquisiti[index].specie}, ${listaPetAcquisiti[index].razza}</li>
           <li class="list-group-item">Di ${listaPetAcquisiti[index].petOwner}</li>
+          <span class="badge bg-secondary align-self-end bg-danger m-1 p-1" onclick="removeCard(${index})">Rimuovi</span></h6>
         </ul>
       </div>`
     }
-
     listaPetSchermo.innerHTML = listaRitorno
 }
 
@@ -84,6 +167,7 @@ const checkOwners = function () {
     listaOwnerSchermo.classList.remove('ownerList')
     titolo2.classList.remove('d-none')
     let listaOwner = []
+
     // Creiamo un set per tenere traccia degli owner unici
     let uniqueOwnersSet = new Set()
 
@@ -95,6 +179,7 @@ const checkOwners = function () {
 
     // Convertiamo il set in un array e lo salviamo in listaowner
     listaOwner = Array.from(uniqueOwnersSet)
+
 
     let listaOwnerConScore = listaOwner.map(owner => {
         let match = []
@@ -111,6 +196,7 @@ const checkOwners = function () {
     for (let index = 0; index < listaOwnerConScore.length; index++) {
         let catenaPets = ``
         for (let i = 0; i < listaOwnerConScore[index].ownerArray.length; i++) {
+            console.log(listaOwnerConScore[index].ownerArray[i])
             catenaPets = catenaPets + `<p>${listaOwnerConScore[index].ownerArray[i].stringaPet()}</p>`
         }
 
@@ -139,19 +225,29 @@ const addPet = function () {
 
     let presente = false
 
-    listaPetAcquisiti.forEach(pet => {
-        if (pet.stringaPet() === newpet.stringaPet()) {
+
+    for (let scopeIndex = 0; scopeIndex < listaPetAcquisiti.length; scopeIndex++) {
+        let scope = listaPetAcquisiti[scopeIndex]
+        console.log(listaPetAcquisiti[scopeIndex])
+
+        // Verifica se lo scope ha i valori del pet 
+        if (
+            scope.petName === listaPetAcquisiti[scopeIndex].petName &&
+            scope.petOwner === listaPetAcquisiti[scopeIndex].petOwner &&
+            scope.specie === listaPetAcquisiti[scopeIndex].specie &&
+            scope.razza === listaPetAcquisiti[scopeIndex].razza
+        ) {
             presente = true
         }
-    })
+    }
 
     if (!presente) {
         listaPetAcquisiti.push(newpet)
+        refreshLocalStorage(listaPetAcquisiti)
     }
-
-
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 form.addEventListener('submit', function (e) {
     e.preventDefault() // fermiamo la pagina dal refresh
@@ -164,3 +260,6 @@ form.addEventListener('submit', function (e) {
     }
     console.log("")//Spaziatura di cortesia
 })
+
+updatePetListSchermo()
+//checkOwners()
