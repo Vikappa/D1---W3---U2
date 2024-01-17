@@ -275,7 +275,7 @@ const updateOwnerList = function () {
         </div>`
     })
     listaOwnerSchermo.innerHTML = stringaFinaleHtmlOwnerCards
-}
+} // Basato su listaPetAquisiti, refresha le card a schermo
 
 
 
@@ -306,7 +306,7 @@ const startRecordingSession = function () {
         if (sessionStorage.getItem(`"usersession{chiave}"`) !== null) {
 
         }
-        sessionStorage.setItem(`"usersession${chiave}"`, "Secondi: [" + varTimer + "] elemento evidenziato: " + document.elementFromPoint(mouseX, mouseY).tagName + " " + document.elementFromPoint(mouseX, mouseY).id + " " + document.elementFromPoint(mouseX, mouseY).classList)
+        sessionStorage.setItem(`"usersession${chiave}"`, "Inizio sesione: " + inizioSessione + " Secondi: [" + varTimer + "] elemento evidenziato: " + document.elementFromPoint(mouseX, mouseY).tagName + " " + document.elementFromPoint(mouseX, mouseY).id + " " + document.elementFromPoint(mouseX, mouseY).classList)
     }
 
 
