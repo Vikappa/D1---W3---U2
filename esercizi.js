@@ -38,6 +38,7 @@ let listaPetAcquisiti = []
 const form = document.getElementById('petForm')
 const titolo1 = document.getElementById('titoloPets')
 const titolo2 = document.getElementById('titoloProprietari')
+const buttonrecylce = document.getElementById('recycle')
 
 let updateSessionTimers = 500 // secondi intervallo registrazione timer
 
@@ -325,3 +326,10 @@ updateSchermoPet() // Prima renderizzazione
 updateVisibilità() // Update prima renderizzazione
 updateOwnerList() // Carica dal localStorage i nomi di tutti gli utenti e i loro score
 startRecordingSession() // Salva variabili in sessionStorage
+
+buttonrecylce.addEventListener("click", function () {
+    console.log("prova")
+    localStorage.clear()
+    updateSchermoPet()
+    window.location.reload(true)
+})
