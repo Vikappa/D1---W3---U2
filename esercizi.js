@@ -39,6 +39,7 @@ const form = document.getElementById('petForm')
 const titolo1 = document.getElementById('titoloPets')
 const titolo2 = document.getElementById('titoloProprietari')
 const buttonrecylce = document.getElementById('recycle')
+const btnInietta = document.getElementById('inietta')
 
 let updateSessionTimers = 500 // secondi intervallo registrazione timer
 
@@ -272,12 +273,9 @@ const badgesLine = function (ownerSc) {
       </button></div>`    }
     //cani
     if (cani > 0 && cani < 5) {
-        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
-        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary text-white  position-relative border-0 rounded-3" 
+        style="padding-bottom:1px; padding-bottom:1px;">
         <i class="fa-solid fa-dog"></i> Canaro
-        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-black text-warning" style="padding-bottom:6px; padding-top: 3px; top:-3px">
-          gold
-        </span>
       </button></div>`    }
     if (cani >= 5) {
         stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
@@ -289,8 +287,8 @@ const badgesLine = function (ownerSc) {
       </button></div>`    }
     //pesci
     if (pesci > 0 && pesci < 5) {
-        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
-        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary text-white  position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;padding-bottom:1px;">
         <i class="fa-solid fa-fish"></i> Pescatore
       </button></div>`    }
     if (pesci >= 5) {
@@ -303,8 +301,8 @@ const badgesLine = function (ownerSc) {
       </button></div>`    }
     //uccelli
     if (uccelli > 0 && uccelli < 5) {
-        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
-        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary text-white  position-relative border-0 rounded-3" 
+        style="padding-bottom:1px; padding-bottom:1px;">
         <i class="fa-solid fa-dove"></i> Avicoltore
       </button></div>`    }
     if (uccelli >= 5) {
@@ -317,8 +315,8 @@ const badgesLine = function (ownerSc) {
       </button></div>`    }
     //draghi
     if (draghi > 0 && draghi < 5) {
-        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
-        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary text-white position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;padding-bottom:1px;">
         <i class="fa-solid fa-dragon"></i> Dracomante
       </button></div>`    }
     if (draghi >= 5) {
@@ -331,8 +329,8 @@ const badgesLine = function (ownerSc) {
       </button></div>`    }
     //crostacei
     if (crostacei > 0 && crostacei < 5) {
-        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
-        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary text-white  position-relative border-0 rounded-3" 
+        style="padding-bottom:1px; padding-bottom:1px;">
         <i class="fa-solid fa-shrimp"></i> Amico dei granchi
       </button></div>`    }
     if (crostacei >= 5) {
@@ -345,8 +343,8 @@ const badgesLine = function (ownerSc) {
       </button></div>`    }
     //ragni
     if (ragni > 0 && ragni < 5) {
-        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
-        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary text-white  position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;padding-bottom:1px;">
         <i class="fa-solid fa-spider"></i> Aracnofilo
       </button></div>`    }
     if (ragni >= 5) {
@@ -359,8 +357,8 @@ const badgesLine = function (ownerSc) {
       </button></div>`    }
     //insetti
     if (insetti > 0 && insetti < 5) {
-        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
-        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary text-white position-relative border-0 rounded-3" 
+        style="padding-bottom:1px; padding-bottom:1px;">
         <i class="fa-solid fa-locust"></i> Entomologo
       </button></div>`    }
     if (insetti >= 5) {
@@ -373,8 +371,8 @@ const badgesLine = function (ownerSc) {
       </button></div>`    }
     //serpenti
     if (serpenti > 0 && serpenti < 5) {
-        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
-        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary text-white position-relative border-0 rounded-3" 
+        style="padding-bottom:1px; padding-bottom:1px;">
         <i class="fa-solid fa-worm"></i> Erpetologo
       </button></div>`    }
     if (serpenti >= 5) {
@@ -442,7 +440,7 @@ const updateOwnerList = function () {
             if (ownerScore.nomeProprietario === JSON.parse(ownerScore.ownZoo[g]).petOwner) {
                 let ownerPet = new Pet(JSON.parse(ownerScore.ownZoo[g]).petName, JSON.parse(ownerScore.ownZoo[g]).petOwner, JSON.parse(ownerScore.ownZoo[g]).specie, JSON.parse(ownerScore.ownZoo[g]).razza)
                 stringaOggettiPetHtml = stringaOggettiPetHtml +
-                    `<p">${ownerPet.petName}</p>`
+                    `<p class="fs-700">${ownerPet.petName}, ${ownerPet.specie} ${ownerPet.razza}</p>`
             }
         }
 
@@ -517,5 +515,102 @@ buttonrecylce.addEventListener("click", function () {
     localStorage.clear()
     updateSchermoPet()
     updateOwnerList()
-    window.location.reload(true)
+    let self = this
+
+    self.classList.remove('btn-info')
+    self.classList.add("btn-success")
+
+    setTimeout(function () {
+        self.classList.remove('btn-success')
+        self.classList.add("btn-light")
+        self.classList.add("text-white")
+        setTimeout(function () {
+            self.classList.remove('text-white')
+            self.classList.remove('btn-light')
+            self.classList.add("btn-info")
+        }, 500)
+    }, 1000)
+
+    updateSchermoPet()
+    updateOwnerList()
+})
+
+btnInietta.addEventListener("click", function () {
+    let self = this
+
+    self.classList.remove('btn-info')
+    self.classList.add("btn-success")
+
+    setTimeout(function () {
+        self.classList.remove('btn-success')
+        self.classList.add("btn-light")
+        self.classList.add("text-white")
+        setTimeout(function () {
+            self.classList.remove('text-white')
+            self.classList.remove('btn-light')
+            self.classList.add("btn-info")
+        }, 500)
+    }, 1000)
+    const pazuzuCat = new Pet("Pazuzu", "Vincenzo", "Gatto", "Certosino")
+    const lilithCat = new Pet("Lilith", "Vincenzo", "Gatto", "Meticcia")
+    const panzoneFish = new Pet("Panzone", "Vincenzo", "Pesce", "Rosso")
+    const smaughDragon = new Pet("Smaugh", "Stefano", "Drago", "Rosso")
+    const Furbuzz = new Pet("Furbuzz", "Bob", "Cane", "Bulldog")
+    const PrincessHiss = new Pet("Princess Hiss", "Samurai ", "Ragno", "Saltatore")
+    const SirNapsalot = new Pet("Sir Naps'a'lot", "Giovanni", "Gatto", "Rosso")
+    const LadyMeowface = new Pet("Lady Meowface", "Alice", "Gatto", "Siberiano")
+    const Whiskers = new Pet("Whiskers", "Alice", "Cane", "Labrador")
+    const dudu = new Pet("Dudu", "Berlusconi", "Cane", "Barboncino")
+    const Bip = new Pet("Bip", "Mr. Nimbus", "Crostaceo", "Gamberetto")
+    const star = new Pet("Scintilla", "Mr. Nimbus", "Pesce", "Stella marina")
+    const pescezebra = new Pet("Haunter", "Mr. Nimbus", "Pesce", "Zebra")
+    const assistente = new Pet("assistente", "Mr. Nimbus", "Pesce", "Pagliaccio")
+    const willy = new Pet("Willy", "Mr. Nimbus", "Pesce", "Orca Assassina")
+    const Danmny = new Pet("Danmny", "Mr. Nimbus", "Pesce", "Orca Assassina")
+    const MobyDick = new Pet("Moby Dick", "Mr. Nimbus", "Balena", "Bianca")
+    const Pyton = new Pet("Pyton", "Simone", "Serpente", "Pitone")
+    const olmo = new Pet("Olmo", "Mr. Nimbus", "Spada", "Spada")
+    const Pamper = new Pet("Pamper", "Mr. Nimbus", "Pesce", "Manta")
+    const albert = new Pet("Albert", "Mr. Nimbus", "Pesce", "Palla")
+    const zorua = new Pet("Zorua", "Mr. Nimbus", "Pesce", "Fantasma")
+    const deeper = new Pet("Deeper", "Mr. Nimbus", "Pesce", "Abissale")
+    const Vruum = new Pet("Visconte Vruum", "Donatello", "Serpente", "Anaconda")
+    const Fluffenstein = new Pet("Fluffenstein", "Eva", "Cane", "Meticcio")
+    const Bark = new Pet("Bark Twain", "Frank", "Cane", "Beogle")
+    const napoleon = new Pet("Napoleon", "Frank", "Crostaceo", "Granchio")
+    const cip = new Pet("Cipper", "Bob", "Uccello", "Pappagallo")
+
+    localStorage.setItem("petListStorage_aaa_0", JSON.stringify(pazuzuCat))
+    localStorage.setItem("petListStorage_aaa_1", JSON.stringify(lilithCat))
+    localStorage.setItem("petListStorage_aaa_2", JSON.stringify(panzoneFish))
+    localStorage.setItem("petListStorage_bbb_5", JSON.stringify(smaughDragon))
+    localStorage.setItem("petListStorage_ccc_4", JSON.stringify(Furbuzz))
+    localStorage.setItem("petListStorage_ccc_5", JSON.stringify(cip))
+    localStorage.setItem("petListStorage_ddd_2", JSON.stringify(PrincessHiss))
+    localStorage.setItem("petListStorage_eee_0", JSON.stringify(SirNapsalot))
+    localStorage.setItem("petListStorage_fff_1", JSON.stringify(LadyMeowface))
+    localStorage.setItem("petListStorage_fff_2", JSON.stringify(Whiskers))
+    localStorage.setItem("petListStorage_eee_0", JSON.stringify(dudu))
+    localStorage.setItem("petListStorage_ggg_0", JSON.stringify(Bip))
+    localStorage.setItem("petListStorage_ggg_1", JSON.stringify(star))
+    localStorage.setItem("petListStorage_ggg_2", JSON.stringify(pescezebra))
+    localStorage.setItem("petListStorage_ggg_4", JSON.stringify(assistente))
+    localStorage.setItem("petListStorage_ggg_7", JSON.stringify(willy))
+    localStorage.setItem("petListStorage_ggg_8", JSON.stringify(Danmny))
+    localStorage.setItem("petListStorage_ggg_9", JSON.stringify(MobyDick))
+    localStorage.setItem("petListStorage_fff_10", JSON.stringify(Pyton))
+    localStorage.setItem("petListStorage_ggg_10", JSON.stringify(olmo))
+    localStorage.setItem("petListStorage_ggg_11", JSON.stringify(Pamper))
+    localStorage.setItem("petListStorage_ggg_12", JSON.stringify(albert))
+    localStorage.setItem("petListStorage_ggg_13", JSON.stringify(zorua))
+    localStorage.setItem("petListStorage_ggg_14", JSON.stringify(deeper))
+    localStorage.setItem("petListStorage_hhh_2", JSON.stringify(Vruum))
+    localStorage.setItem("petListStorage_iii_2", JSON.stringify(Fluffenstein))
+    localStorage.setItem("petListStorage_jjj_2", JSON.stringify(Bark))
+    localStorage.setItem("petListStorage_jjj_2", JSON.stringify(napoleon))
+
+
+    updateSchermoPet()
+    updateOwnerList()
+
 })
