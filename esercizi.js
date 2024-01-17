@@ -569,7 +569,7 @@ btnInietta.addEventListener("click", function () {
     const Danmny = new Pet("Danmny", "Mr. Nimbus", "Pesce", "Orca Assassina")
     const MobyDick = new Pet("Moby Dick", "Mr. Nimbus", "Balena", "Bianca")
     const Pyton = new Pet("Pyton", "Simone", "Serpente", "Pitone")
-    const olmo = new Pet("Olmo", "Mr. Nimbus", "Spada", "Spada")
+    const olmo = new Pet("Olmo", "Mr. Nimbus", "Pesce", "Spada")
     const Pamper = new Pet("Pamper", "Mr. Nimbus", "Pesce", "Manta")
     const albert = new Pet("Albert", "Mr. Nimbus", "Pesce", "Palla")
     const zorua = new Pet("Zorua", "Mr. Nimbus", "Pesce", "Fantasma")
