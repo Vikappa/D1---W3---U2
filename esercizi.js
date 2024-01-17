@@ -214,6 +214,191 @@ const easterEgg = function (newpet) {
     }
 }
 
+const badgesLine = function (ownerSc) {
+    let stringaBadges = ``
+    let gatti = 0
+    let cani = 0
+    let pesci = 0
+    let uccelli = 0
+    let draghi = 0
+    let crostacei = 0
+    let ragni = 0
+    let insetti = 0
+    let serpenti = 0
+
+    for (let i = 0; i < ownerSc.ownZoo.length; i++) {
+        if (JSON.parse(ownerSc.ownZoo[i]).specie === "Gatto") {
+            gatti++
+        }
+        if (JSON.parse(ownerSc.ownZoo[i]).specie === "Cane") {
+            cani++
+        }
+        if (JSON.parse(ownerSc.ownZoo[i]).specie === "Pesce") {
+            pesci++
+        }
+        if (JSON.parse(ownerSc.ownZoo[i]).specie === "Uccello") {
+            uccelli++
+        }
+        if (JSON.parse(ownerSc.ownZoo[i]).specie === "Drago") {
+            draghi++
+        }
+        if (JSON.parse(ownerSc.ownZoo[i]).specie === "Crostaceo") {
+            crostacei++
+        }
+        if (JSON.parse(ownerSc.ownZoo[i]).specie === "Ragno") {
+            ragni++
+        }
+        if (JSON.parse(ownerSc.ownZoo[i]).specie === "Insetto") {
+            insetti++
+        }
+        if (JSON.parse(ownerSc.ownZoo[i]).specie === "Serpente") {
+            serpenti++
+        }
+    }
+    //gatti
+    if (gatti > 0 && gatti < 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px; color: white; padding-bottom:1px;">
+        <i class="fa-solid fa-cat"></i> Gattaro
+      </button></div>`
+    }
+    if (gatti >= 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-cat"></i>Gattaro
+        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-black text-warning" style="padding-bottom:6px; padding-top: 3px; top:-3px">
+          gold
+        </span>
+      </button></div>`    }
+    //cani
+    if (cani > 0 && cani < 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-dog"></i> Canaro
+        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-black text-warning" style="padding-bottom:6px; padding-top: 3px; top:-3px">
+          gold
+        </span>
+      </button></div>`    }
+    if (cani >= 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-dog"></i> Canaro
+        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-black text-warning" style="padding-bottom:6px; padding-top: 3px; top:-3px">
+          gold
+        </span>
+      </button></div>`    }
+    //pesci
+    if (pesci > 0 && pesci < 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-fish"></i> Pescatore
+      </button></div>`    }
+    if (pesci >= 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-fish"></i> Pescatore
+        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-black text-warning" style="padding-bottom:6px; padding-top: 3px; top:-3px">
+          gold
+        </span>
+      </button></div>`    }
+    //uccelli
+    if (uccelli > 0 && uccelli < 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-dove"></i> Avicoltore
+      </button></div>`    }
+    if (uccelli >= 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-dove"></i> Avicoltore
+        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-black text-warning" style="padding-bottom:6px; padding-top: 3px; top:-3px">
+          gold
+        </span>
+      </button></div>`    }
+    //draghi
+    if (draghi > 0 && draghi < 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-dragon"></i> Dracomante
+      </button></div>`    }
+    if (draghi >= 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-dragon"></i> Dracomante
+        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-black text-warning" style="padding-bottom:6px; padding-top: 3px; top:-3px">
+          gold
+        </span>
+      </button></div>`    }
+    //crostacei
+    if (crostacei > 0 && crostacei < 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-shrimp"></i> Amico dei granchi
+      </button></div>`    }
+    if (crostacei >= 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-shrimp"></i> Amico dei granchi
+        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-black text-warning" style="padding-bottom:6px; padding-top: 3px; top:-3px">
+          gold
+        </span>
+      </button></div>`    }
+    //ragni
+    if (ragni > 0 && ragni < 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-spider"></i> Aracnofilo
+      </button></div>`    }
+    if (ragni >= 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-spider"></i> Aracnofilo
+        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-black text-warning" style="padding-bottom:6px; padding-top: 3px; top:-3px">
+          gold
+        </span>
+      </button></div>`    }
+    //insetti
+    if (insetti > 0 && insetti < 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-locust"></i> Entomologo
+      </button></div>`    }
+    if (insetti >= 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-locust"></i> Entomologo
+        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-black text-warning" style="padding-bottom:6px; padding-top: 3px; top:-3px">
+          gold
+        </span>
+      </button></div>`    }
+    //serpenti
+    if (serpenti > 0 && serpenti < 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-worm"></i> Erpetologo
+      </button></div>`    }
+    if (serpenti >= 5) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-worm"></i> Erpetologo
+        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-black text-warning" style="padding-bottom:6px; padding-top: 3px; top:-3px">
+          gold
+        </span>
+      </button></div>`    }
+    // zookeeper
+    if (gatti + cani + pesci + uccelli + draghi + crostacei + ragni + insetti + serpenti > 19) {
+        stringaBadges = stringaBadges + `<div class="d-inline m-1 golden"><button type="button" class="bg-secondary position-relative border-0 rounded-3" 
+        style="padding-bottom:1px;background-color: purple!important; color: gold; font-weight:500; padding-bottom:1px;">
+        <i class="fa-solid fa-ranking-star"></i> Zoologo
+        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-black text-warning" style="padding-bottom:6px; padding-top: 3px; top:-3px">
+          platinum
+        </span>
+      </button></div>`
+    }
+
+    return stringaBadges
+} // Ritorna una stringa innerHtml con i badges 
+
 const updateOwnerList = function () {
     listaOwnerSchermo.innerHTML = ``
     let alberoCompleto = [...Object.entries(localStorage)]
@@ -272,7 +457,7 @@ const updateOwnerList = function () {
               </div>
             </div>
           </div>
-          <h6>Badges:</h6>
+          <h6>Badges:${badgesLine(ownerScore)}</h6>
         </div>`
     })
     listaOwnerSchermo.innerHTML = stringaFinaleHtmlOwnerCards
@@ -331,5 +516,6 @@ buttonrecylce.addEventListener("click", function () {
     console.log("prova")
     localStorage.clear()
     updateSchermoPet()
+    updateOwnerList()
     window.location.reload(true)
 })
