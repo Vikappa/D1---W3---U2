@@ -324,4 +324,4 @@ loadLocalStorage() //Aggiungo il localStorage alla listaPetAcquisiti alla prima 
 updateSchermoPet() // Prima renderizzazione
 updateVisibilità() // Update prima renderizzazione
 updateOwnerList() // Carica dal localStorage i nomi di tutti gli utenti e i loro score
-startRecordingSession()
+startRecordingSession() // Salva variabili in sessionStorage
