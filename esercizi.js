@@ -1,43 +1,45 @@
-class User {
-    constructor(firstName, lastName, age, location) {
-        this.firstName = firstName
-        this.lastName = lastName
-        this.age = age
-        this.location = location
-        this.confrontaEtàCon = function (soggetoConfronto) {
-            if (this.age > soggetoConfronto.age) {
-                console.log(`E' più vecchio ${this.firstName}, che ha ${this.age} anni che ${soggetoConfronto.firstName} che ne ha ${soggetoConfronto.age}`)
-                return `E' più vecchio ${this.firstName}, che ha ${this.age} anni che ${soggetoConfronto.firstName} che ne ha ${soggetoConfronto.age}`
-            }
-            if (this.age < soggetoConfronto.age) {
-                console.log(`E' più vecchio ${soggetoConfronto.firstName}, che ha ${soggetoConfronto.age} anni che ${this.firstName} che ne ha ${this.age}`)
-                return `E' più vecchio ${soggetoConfronto.firstName}, che ha ${soggetoConfronto.age} anni che ${this.firstName} che ne ha ${this.age}`
-            }
-            if (this.age === soggetoConfronto.age) {
-                console.log(`${soggetoConfronto.firstName} e ${this.firstName} sono coetanei , hanno ${this.age} anni`)
-                return `${soggetoConfronto.firstName} e ${this.firstName} sono coetanei , hanno ${this.age} anni`
-            }
-        }
-    }
-}
+// class User {
+//     constructor(firstName, lastName, age, location) {
+//         this.firstName = firstName
+//         this.lastName = lastName
+//         this.age = age
+//         this.location = location
+//         this.confrontaEtàCon = function (soggetoConfronto) {
+//             if (this.age > soggetoConfronto.age) {
+//                 console.log(`E' più vecchio ${this.firstName}, che ha ${this.age} anni che ${soggetoConfronto.firstName} che ne ha ${soggetoConfronto.age}`)
+//                 return `E' più vecchio ${this.firstName}, che ha ${this.age} anni che ${soggetoConfronto.firstName} che ne ha ${soggetoConfronto.age}`
+//             }
+//             if (this.age < soggetoConfronto.age) {
+//                 console.log(`E' più vecchio ${soggetoConfronto.firstName}, che ha ${soggetoConfronto.age} anni che ${this.firstName} che ne ha ${this.age}`)
+//                 return `E' più vecchio ${soggetoConfronto.firstName}, che ha ${soggetoConfronto.age} anni che ${this.firstName} che ne ha ${this.age}`
+//             }
+//             if (this.age === soggetoConfronto.age) {
+//                 console.log(`${soggetoConfronto.firstName} e ${this.firstName} sono coetanei , hanno ${this.age} anni`)
+//                 return `${soggetoConfronto.firstName} e ${this.firstName} sono coetanei , hanno ${this.age} anni`
+//             }
+//         }
+//     }
+// }
 
-const marioRossi = new User("Mario", "Rossi", 55, "Padova")
-const darioBianchi = new User("Dario", "Bianchi", 37, "Vicenza")
-const marcoNeri = new User("Marco", "Neri", 55, "Torino")
-console.log("") //spaziatura per i risultati del prossimo esercizio
+// const marioRossi = new User("Mario", "Rossi", 55, "Padova")
+// const darioBianchi = new User("Dario", "Bianchi", 37, "Vicenza")
+// const marcoNeri = new User("Marco", "Neri", 55, "Torino")
+// marioRossi.confrontaEtàCon(darioBianchi)
+// marioRossi.confrontaEtàCon(marcoNeri)
+// darioBianchi.confrontaEtàCon(marcoNeri)
+// console.log("") //spaziatura per i risultati del prossimo esercizio
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 const campoPassword = document.getElementById('passwordUtente')
 const listaPetSchermo = document.getElementById('listaPetSchermo')
 const listaOwnerSchermo = document.getElementById('ownerList')
 const divPets = document.getElementById('contenitoreListaPet')
+const divOwners = document.getElementById('divOwners')
 let listaPetAcquisiti = []
 const form = document.getElementById('petForm')
 const titolo1 = document.getElementById('titoloPets')
 const titolo2 = document.getElementById('titoloProprietari')
 
-marioRossi.confrontaEtàCon(darioBianchi)
-marioRossi.confrontaEtàCon(marcoNeri)
-darioBianchi.confrontaEtàCon(marcoNeri)
+
 
 let stringaPassword
 
@@ -49,14 +51,15 @@ campoPassword.addEventListener("input", function () {
     updateVisibilità()
 })
 
-
 class Pet {
+
     constructor(petName, petOwner, specie, razza) {
         this.petName = petName
         this.petOwner = petOwner
         this.specie = specie
         this.razza = razza
     }
+
     stringaPet() {
         return `${this.petName}, ${this.specie} di ${this.petOwner}, ${this.razza}`
     }
@@ -68,6 +71,20 @@ class Pet {
             return false
         }
     }
+
+    stringaPerOwnerCard() {
+        return `${this.petName}, ${this.specie} ${this.razza}`
+    }
+
+}
+
+class recordProprietario {
+    constructor(nomeProprietario, arrayPet) {
+        this.nomeProprietario = nomeProprietario
+        this.ownZoo = arrayPet
+    }
+
+
 
 }
 
@@ -108,6 +125,7 @@ const sincronizzaMemoriaUtente = function () {
 const removePet = function (x) {
     listaPetAcquisiti.splice(x, 1) // Rimuovo l'elemento da listaPetAcquisiti
     updateSchermoPet()
+    updateOwnerList()
 
 } // rimuove l'elemento dal dom dal localstorage e dalla lista in esecuzione corrente e refresha tutto
 
@@ -159,11 +177,11 @@ const addPet = function () {
         listaPetAcquisiti.push(newpet)
         updateSchermoPet()
         updateVisibilità() // Questo metodo aggiorna lo schermo ma anche il localStorage
-
-        easterEgg(newpet)
+        updateOwnerList()
+        //easterEgg(newpet)
     }
 
-}
+} // aggiunge il pet, salva in localstorage, aggiorna schermo
 
 const easterEgg = function (newpet) {
     let pazuzu = new Pet('Pazuzu', 'Vincenzo', 'Gatto', 'Certosino')
@@ -189,7 +207,67 @@ const easterEgg = function (newpet) {
 }
 
 const updateOwnerList = function () {
+    listaOwnerSchermo.innerHTML = ``
+    let alberoCompleto = [...Object.entries(localStorage)]
+    if (alberoCompleto.length > 0) {
+        divOwners.classList.remove('d-none')
+    } else {
+        divOwners.classList.add('d-none')
+    }
 
+    let listaProprietari = []
+
+    // Metto in un array le singole iterazioni di ogni owner
+    for (let index = 0; index < alberoCompleto.length; index++) {
+        let petScope = JSON.parse(alberoCompleto[index][1])
+        listaProprietari.push(petScope.petOwner)
+    }
+
+    const setDiOwners = new Set(listaProprietari)
+    listaProprietari = [...setDiOwners]
+
+    // Preparo un array da riempire con oggetti fatti di nomeProprietario e un array di suoi pet
+    let listaOwnerScore = []
+
+    listaProprietari.forEach(owner => {
+        let personalZoo = []
+        alberoCompleto.forEach(controlloOwner => {
+            if (JSON.parse(controlloOwner[1]).petOwner === owner) {
+                personalZoo.push(controlloOwner[1])// Scorre tutto il localstorage e aggiunge all'array personale i pet con quel padrone
+            }
+        })
+        let newRecord = new recordProprietario(owner, personalZoo)
+        listaOwnerScore.push(newRecord)
+    })
+    let stringaFinaleHtmlOwnerCards = ``
+
+    listaOwnerScore.forEach(ownerScore => {
+
+        let stringaOggettiPetHtml = ``
+        for (let g = 0; g < ownerScore.ownZoo.length; g++) {
+
+            if (ownerScore.nomeProprietario === JSON.parse(ownerScore.ownZoo[g]).petOwner) {
+                let ownerPet = new Pet(JSON.parse(ownerScore.ownZoo[g]).petName, JSON.parse(ownerScore.ownZoo[g]).petOwner, JSON.parse(ownerScore.ownZoo[g]).specie, JSON.parse(ownerScore.ownZoo[g]).razza)
+                stringaOggettiPetHtml = stringaOggettiPetHtml +
+                    `<p">${ownerPet.petName}</p>`
+            }
+        }
+
+        stringaFinaleHtmlOwnerCards = stringaFinaleHtmlOwnerCards + `<div class="card mb-3" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+            <h5 class="card-title">${ownerScore.nomeProprietario}</h5>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                ${stringaOggettiPetHtml}
+              </div>
+            </div>
+          </div>
+          <h6>Badges:</h6>
+        </div>`
+    })
+    listaOwnerSchermo.innerHTML = stringaFinaleHtmlOwnerCards
 }
 
 loadLocalStorage() //Aggiungo il localStorage alla listaPetAcquisiti alla prima iterazione
@@ -201,5 +279,4 @@ updateOwnerList() // Carica dal localStorage i nomi di tutti gli utenti e i loro
 form.addEventListener('submit', function (e) {
     e.preventDefault() // fermiamo la pagina dal refresh
     addPet()
-    console.log("")//Spaziatura di cortesia
 })
