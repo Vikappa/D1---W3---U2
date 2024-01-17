@@ -1,4 +1,4 @@
-# Pet Registry Interface
+# Pet Registry Interface <img src="./blobfish.webp" height="28px" style="vertical-align: middle;"/>
 
 Il progetto consiste in una semplice interfaccia che consente di registrare i dettagli degli animali domestici in un database salvato nel localstorage del browser.
 

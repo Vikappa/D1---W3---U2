@@ -39,7 +39,7 @@ const form = document.getElementById('petForm')
 const titolo1 = document.getElementById('titoloPets')
 const titolo2 = document.getElementById('titoloProprietari')
 
-
+let updateSessionTimers = 500 // secondi intervallo registrazione timer
 
 let stringaPassword
 
@@ -86,6 +86,13 @@ class recordProprietario {
 
 
 
+}
+
+class Sessione {
+    constructor(dataInizio, durata) {
+        this.dataInizio
+        this.durata
+    }
 }
 
 const svuotaListaPet = function () {
@@ -270,13 +277,51 @@ const updateOwnerList = function () {
     listaOwnerSchermo.innerHTML = stringaFinaleHtmlOwnerCards
 }
 
-loadLocalStorage() //Aggiungo il localStorage alla listaPetAcquisiti alla prima iterazione
-updateSchermoPet() // Prima renderizzazione
-updateVisibilità() // Update prima renderizzazione
-updateOwnerList() // Carica dal localStorage i nomi di tutti gli utenti e i loro score
 
 
 form.addEventListener('submit', function (e) {
     e.preventDefault() // fermiamo la pagina dal refresh
     addPet()
 })
+
+//////////////////////////////////////////////////////////////////////////////////////////
+let mouseX
+let mouseY
+document.addEventListener('mousemove', function (event) {
+    // Ottieni le coordinate del mouse
+    mouseX = event.clientX
+    mouseY = event.clientY
+})
+
+const startRecordingSession = function () {
+    let chiave = new Date().getTime()
+    let inizioSessione = `[${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}]`
+    let varTimer = 0
+
+    const updateSessioneInMemoria = function () {
+        varTimer
+        const oggettoTime = new Sessione("usersession" + chiave, inizioSessione)
+        varTimer += updateSessionTimers
+        let currentTime = sessionStorage.getItem('counterTime')
+        if (sessionStorage.getItem(`"usersession{chiave}"`) !== null) {
+
+        }
+        sessionStorage.setItem(`"usersession${chiave}"`, "Secondi: [" + varTimer + "] elemento evidenziato: " + document.elementFromPoint(mouseX, mouseY).tagName + " " + document.elementFromPoint(mouseX, mouseY).id + " " + document.elementFromPoint(mouseX, mouseY).classList)
+    }
+
+
+
+    intervalloUpdate = setInterval(updateSessioneInMemoria, updateSessionTimers)
+
+    window.addEventListener('beforeunload', function () {
+        clearInterval(intervalloUpdate)
+    })
+    console.log(inizioSessione)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+loadLocalStorage() //Aggiungo il localStorage alla listaPetAcquisiti alla prima iterazione
+updateSchermoPet() // Prima renderizzazione
+updateVisibilità() // Update prima renderizzazione
+updateOwnerList() // Carica dal localStorage i nomi di tutti gli utenti e i loro score
+startRecordingSession()
